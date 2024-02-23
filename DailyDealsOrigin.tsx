@@ -26,7 +26,7 @@ const textColor = '#441973';
 
 const styles = StyleSheet.create({
   pressable: {
-    marginLeft: 12,
+    marginLeft: 16,
     marginTop: -4,
     zIndex: -10,
     overflow: 'visible',

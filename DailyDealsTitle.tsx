@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {DailyDealsShape} from './DailyDealsShape.tsx';
 import {Image, StyleSheet, Text, View} from 'react-native';
 
-const FIRE_SIZE = 20;
+const FIRE_SIZE = 25;
 const FIRE = require('./images/fire.png');
 
 export const DailyDealsTitle: FC = () => (
@@ -23,9 +23,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingLeft: 8,
-    paddingTop: 8,
+    paddingTop: 4,
     paddingBottom: 8,
-    gap: 8,
+    gap: 4,
   },
   titleLabel: {
     color: textColor,
