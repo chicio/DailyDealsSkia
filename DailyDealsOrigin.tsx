@@ -1,100 +1,33 @@
-import React, {FC, useState} from 'react';
-import {
-  Image,
-  LayoutChangeEvent,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import { Canvas, Path, Skia, SkPath } from "@shopify/react-native-skia";
+import React, {FC} from 'react';
+import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
+import {DailyDealsShape} from './DailyDealsShape.tsx';
 
-type Size = {
-  width: number;
-  height: number;
-};
-
-type PolygonFeatures = {
-  vertices: SkPath;
-  size: Size;
-};
-
-const BOTTOM_INCLINATION = 3;
-const RIGHT_INCLINATION = 20;
 const ARROW_DOWN = require('./images/arrow-icon-bold.png');
 const ARROW_SIDE_SIZE = 20;
 
 export const DailyDealsOrigin: FC<{
   originCity: string;
   onPress: () => void;
-}> = ({originCity, onPress}) => {
-  const [polygonFeatures, setPolygonFeatures] =
-    useState<PolygonFeatures | null>(null);
-
-  const onContentLayout = (event: LayoutChangeEvent) => {
-    const {width, height} = event.nativeEvent.layout;
-    const roundedWidth = Math.round(width);
-    const roundedHeight = Math.round(height);
-    const widthWithInclination = roundedWidth + RIGHT_INCLINATION;
-
-    const path = Skia.Path.Make();
-    path.moveTo(1, 0);
-    path.lineTo(widthWithInclination, 0);
-    path.lineTo(roundedWidth, roundedHeight);
-    path.lineTo(0, roundedHeight - BOTTOM_INCLINATION);
-    path.close()
-
-    setPolygonFeatures({
-      vertices: path,
-      size: {
-        width: widthWithInclination,
-        height: roundedHeight,
-      },
-    });
-  };
-
-  return (
-    <Pressable onPress={onPress} style={styles.pressable}>
-      <View onLayout={onContentLayout} style={styles.pressableContent}>
-        {polygonFeatures && (
-          <Canvas
-            style={{
-              ...styles.polygon,
-              width: polygonFeatures.size.width,
-              height: polygonFeatures.size.height,
-            }}>
-            <Path path={polygonFeatures.vertices} color={'white'} />
-          </Canvas>
-        )}
-        <Text style={styles.fromLabel}>From</Text>
-        <View style={styles.originAndArrowIconContainer}>
-          <Text style={styles.origin}>{originCity}</Text>
-          <Image source={ARROW_DOWN} style={styles.arrow} />
-        </View>
+}> = ({originCity, onPress}) => (
+  <Pressable onPress={onPress} style={styles.pressable}>
+    <DailyDealsShape shapeColor={'white'}>
+      <Text style={styles.fromLabel}>From</Text>
+      <View style={styles.originAndArrowIconContainer}>
+        <Text style={styles.origin}>{originCity}</Text>
+        <Image source={ARROW_DOWN} style={styles.arrow} />
       </View>
-    </Pressable>
-  );
-};
+    </DailyDealsShape>
+  </Pressable>
+);
 
 const textColor = '#441973';
 
 const styles = StyleSheet.create({
   pressable: {
-    marginLeft: 0,
+    marginLeft: 12,
     marginTop: -4,
-    zIndex: 0,
+    zIndex: -10,
     overflow: 'visible',
-  },
-  pressableContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    overflow: 'visible',
-    paddingLeft: 8,
-    paddingTop: 4,
-    paddingBottom: 4,
-  },
-  polygon: {
-    position: 'absolute',
   },
   fromLabel: {
     color: textColor,

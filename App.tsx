@@ -1,6 +1,6 @@
 import React from 'react';
 import {Alert, View} from 'react-native';
-import {DailyDealsOrigin} from './DailyDealsOrigin.tsx';
+import {DailyDealsHeader} from './DailyDealsHeader.tsx';
 
 function App(): React.JSX.Element {
   return (
@@ -12,7 +12,7 @@ function App(): React.JSX.Element {
         backgroundColor: 'gray',
         flexDirection: 'column',
       }}>
-      <DailyDealsOrigin
+      <DailyDealsHeader
         originCity={'Milan'}
         onPress={() =>
           Alert.alert('Pressed', 'Custom Component Pressed', [
