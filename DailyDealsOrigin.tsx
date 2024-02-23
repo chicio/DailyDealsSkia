@@ -7,6 +7,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import {Canvas, Path} from '@shopify/react-native-skia';
 
 type Size = {
   width: number;
@@ -36,13 +37,13 @@ export const DailyDealsOrigin: FC<{
     const roundedHeight = Math.round(height);
     const widthWithInclination = roundedWidth + RIGHT_INCLINATION;
 
-    const topLeftVertex = '0.5,0';
+    const topLeftVertex = '1,0';
     const topRightVertex = `${widthWithInclination},0`;
     const bottomRightVertex = `${roundedWidth},${roundedHeight}`;
     const bottomLeftVertex = `0,${roundedHeight - BOTTOM_INCLINATION}`;
 
     setPolygonFeatures({
-      vertices: `${topLeftVertex} ${bottomLeftVertex} ${bottomRightVertex} ${topRightVertex}`,
+      vertices: `M ${topLeftVertex} ${bottomLeftVertex} ${bottomRightVertex} ${topRightVertex} Z`,
       size: {
         width: widthWithInclination,
         height: roundedHeight,
@@ -53,14 +54,16 @@ export const DailyDealsOrigin: FC<{
   return (
     <Pressable onPress={onPress} style={styles.pressable}>
       <View onLayout={onContentLayout} style={styles.pressableContent}>
-        {/*{polygonFeatures && (*/}
-        {/*  <Svg*/}
-        {/*    height={polygonFeatures.size.height}*/}
-        {/*    width={polygonFeatures.size.width}*/}
-        {/*    style={styles.polygon}>*/}
-        {/*    <Polygon points={polygonFeatures.vertices} fill={Color.gray0} />*/}
-        {/*  </Svg>*/}
-        {/*)}*/}
+        {polygonFeatures && (
+          <Canvas
+            style={{
+              ...styles.polygon,
+              width: polygonFeatures.size.width,
+              height: polygonFeatures.size.height,
+            }}>
+            <Path path={polygonFeatures.vertices} color={'white'} />
+          </Canvas>
+        )}
         <Text style={styles.fromLabel}>From</Text>
         <View style={styles.originAndArrowIconContainer}>
           <Text style={styles.origin}>{originCity}</Text>
@@ -79,7 +82,6 @@ const styles = StyleSheet.create({
     marginTop: -4,
     zIndex: 0,
     overflow: 'visible',
-    backgroundColor: 'white',
   },
   pressableContent: {
     flexDirection: 'row',
@@ -104,6 +106,7 @@ const styles = StyleSheet.create({
   origin: {
     color: textColor,
     fontSize: 18,
+    fontWeight: 'bold',
   },
   arrow: {
     width: ARROW_SIDE_SIZE,
