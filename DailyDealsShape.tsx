@@ -39,12 +39,13 @@ export const DailyDealsShape: FC<{
     const roundedWidth = Math.round(width);
     const roundedHeight = Math.round(height);
     const widthWithInclination = roundedWidth + RIGHT_INCLINATION;
+    const heightWithInclination = roundedHeight - BOTTOM_INCLINATION;
 
     const path = Skia.Path.Make();
     path.moveTo(1, 0);
     path.lineTo(widthWithInclination, 0);
     path.lineTo(roundedWidth, roundedHeight);
-    path.lineTo(0, roundedHeight - BOTTOM_INCLINATION);
+    path.lineTo(0, heightWithInclination);
     path.close();
 
     setPolygonFeatures({
@@ -78,12 +79,7 @@ export const DailyDealsShape: FC<{
 
 const styles = StyleSheet.create({
   pressableContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
     overflow: 'visible',
-    paddingLeft: 8,
-    paddingTop: 4,
-    paddingBottom: 4,
     alignSelf: 'flex-start',
   },
   polygon: {

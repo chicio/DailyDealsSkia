@@ -11,10 +11,12 @@ export const DailyDealsOrigin: FC<{
 }> = ({originCity, onPress}) => (
   <Pressable onPress={onPress} style={styles.pressable}>
     <DailyDealsShape shapeColor={'white'}>
-      <Text style={styles.fromLabel}>From</Text>
-      <View style={styles.originAndArrowIconContainer}>
-        <Text style={styles.origin}>{originCity}</Text>
-        <Image source={ARROW_DOWN} style={styles.arrow} />
+      <View style={styles.dailyDealsOriginContent}>
+        <Text style={styles.fromLabel}>From</Text>
+        <View style={styles.originAndArrowIconContainer}>
+          <Text style={styles.origin}>{originCity}</Text>
+          <Image source={ARROW_DOWN} style={styles.arrow} />
+        </View>
       </View>
     </DailyDealsShape>
   </Pressable>
@@ -29,9 +31,19 @@ const styles = StyleSheet.create({
     zIndex: -10,
     overflow: 'visible',
   },
+  dailyDealsOriginContent: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingLeft: 8,
+    paddingTop: 4,
+    paddingBottom: 4,
+  },
   fromLabel: {
     color: textColor,
     fontSize: 14,
+    fontFamily: 'Ubuntu-Regular',
   },
   originAndArrowIconContainer: {
     flexDirection: 'row',
@@ -42,6 +54,7 @@ const styles = StyleSheet.create({
     color: textColor,
     fontSize: 18,
     fontWeight: 'bold',
+    fontFamily: 'Ubuntu-Bold',
   },
   arrow: {
     width: ARROW_SIDE_SIZE,
