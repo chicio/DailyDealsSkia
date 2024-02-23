@@ -7,7 +7,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import {Canvas, Path} from '@shopify/react-native-skia';
+import { Canvas, Path, Skia, SkPath } from "@shopify/react-native-skia";
 
 type Size = {
   width: number;
@@ -15,7 +15,7 @@ type Size = {
 };
 
 type PolygonFeatures = {
-  vertices: string;
+  vertices: SkPath;
   size: Size;
 };
 
@@ -37,13 +37,15 @@ export const DailyDealsOrigin: FC<{
     const roundedHeight = Math.round(height);
     const widthWithInclination = roundedWidth + RIGHT_INCLINATION;
 
-    const topLeftVertex = '1,0';
-    const topRightVertex = `${widthWithInclination},0`;
-    const bottomRightVertex = `${roundedWidth},${roundedHeight}`;
-    const bottomLeftVertex = `0,${roundedHeight - BOTTOM_INCLINATION}`;
+    const path = Skia.Path.Make();
+    path.moveTo(1, 0);
+    path.lineTo(widthWithInclination, 0);
+    path.lineTo(roundedWidth, roundedHeight);
+    path.lineTo(0, roundedHeight - BOTTOM_INCLINATION);
+    path.close()
 
     setPolygonFeatures({
-      vertices: `M ${topLeftVertex} ${bottomLeftVertex} ${bottomRightVertex} ${topRightVertex} Z`,
+      vertices: path,
       size: {
         width: widthWithInclination,
         height: roundedHeight,
