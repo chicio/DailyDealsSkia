@@ -1,4 +1,4 @@
-package com.dailydealsskia
+package com.dailydeals
 
 import android.app.Application
 import com.facebook.react.PackageList

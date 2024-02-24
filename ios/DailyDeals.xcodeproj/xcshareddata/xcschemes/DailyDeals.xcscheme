@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "DailyDealsSkia.app"
-               BlueprintName = "DailyDealsSkia"
-               ReferencedContainer = "container:DailyDealsSkia.xcodeproj">
+               BuildableName = "DailyDeals.app"
+               BlueprintName = "DailyDeals"
+               ReferencedContainer = "container:DailyDeals.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "DailyDealsSkiaTests.xctest"
-               BlueprintName = "DailyDealsSkiaTests"
-               ReferencedContainer = "container:DailyDealsSkia.xcodeproj">
+               BuildableName = "DailyDealsTests.xctest"
+               BlueprintName = "DailyDealsTests"
+               ReferencedContainer = "container:DailyDeals.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "DailyDealsSkia.app"
-            BlueprintName = "DailyDealsSkia"
-            ReferencedContainer = "container:DailyDealsSkia.xcodeproj">
+            BuildableName = "DailyDeals.app"
+            BlueprintName = "DailyDeals"
+            ReferencedContainer = "container:DailyDeals.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "DailyDealsSkia.app"
-            BlueprintName = "DailyDealsSkia"
-            ReferencedContainer = "container:DailyDealsSkia.xcodeproj">
+            BuildableName = "DailyDeals.app"
+            BlueprintName = "DailyDeals"
+            ReferencedContainer = "container:DailyDeals.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
