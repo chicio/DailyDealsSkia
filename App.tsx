@@ -1,21 +1,12 @@
 import React from 'react';
-import {Alert, StyleSheet, Text, useWindowDimensions, View} from 'react-native';
+import {Alert, StyleSheet, Text, View} from 'react-native';
 import {DailyDealsHeaderSkia} from './components/skia/DailyDealsHeaderSkia.tsx';
-import {Canvas, LinearGradient, Rect, vec} from '@shopify/react-native-skia';
+import {GradientBackground} from './components/GradientBackground.tsx';
 
 function App(): React.JSX.Element {
-  const {width, height} = useWindowDimensions();
   return (
     <View style={styles.container}>
-      <Canvas style={StyleSheet.absoluteFill}>
-        <Rect x={0} y={0} width={width} height={height}>
-          <LinearGradient
-            start={vec(0, 0)}
-            end={vec(width, height)}
-            colors={['#483D8B', '#6A5ACD', '#ADD8E6']}
-          />
-        </Rect>
-      </Canvas>
+      <GradientBackground />
       <Text style={styles.titleLabel}>React Native Skia</Text>
       <DailyDealsHeaderSkia
         originCity={'London (LON)'}
