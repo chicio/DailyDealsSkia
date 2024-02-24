@@ -1,26 +1,56 @@
 import React, {FC} from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import {DailyDealsShape} from './DailyDealsShape.tsx';
+import {Skia} from '@shopify/react-native-skia';
 
 const ARROW_DOWN = require('./images/arrow-icon-bold.png');
 const ARROW_SIDE_SIZE = 20;
+const BOTTOM_INCLINATION = 3;
+const RIGHT_INCLINATION = 20;
+
+const dailyDealsOriginPolygonFeaturesCalculation = (
+  width: number,
+  height: number,
+) => {
+  const widthWithInclination = width + RIGHT_INCLINATION;
+  const heightWithInclination = height - BOTTOM_INCLINATION;
+
+  const path = Skia.Path.Make();
+  path.moveTo(1, 0);
+  path.lineTo(widthWithInclination, 0);
+  path.lineTo(width, height);
+  path.lineTo(0, heightWithInclination);
+  path.close();
+
+  return {
+    vertices: path,
+    size: {
+      width: widthWithInclination,
+      height: height,
+    },
+  };
+};
 
 export const DailyDealsOrigin: FC<{
   originCity: string;
   onPress: () => void;
-}> = ({originCity, onPress}) => (
-  <Pressable onPress={onPress} style={styles.pressable}>
-    <DailyDealsShape shapeColor={'white'}>
-      <View style={styles.dailyDealsOriginContent}>
-        <Text style={styles.fromLabel}>From</Text>
-        <View style={styles.originAndArrowIconContainer}>
-          <Text style={styles.origin}>{originCity}</Text>
-          <Image source={ARROW_DOWN} style={styles.arrow} />
+}> = ({originCity, onPress}) => {
+  return (
+    <Pressable onPress={onPress} style={styles.pressable}>
+      <DailyDealsShape
+        shapeColor={'white'}
+        polygonFeaturesCalculation={dailyDealsOriginPolygonFeaturesCalculation}>
+        <View style={styles.dailyDealsOriginContent}>
+          <Text style={styles.fromLabel}>from</Text>
+          <View style={styles.originAndArrowIconContainer}>
+            <Text style={styles.origin}>{originCity}</Text>
+            <Image source={ARROW_DOWN} style={styles.arrow} />
+          </View>
         </View>
-      </View>
-    </DailyDealsShape>
-  </Pressable>
-);
+      </DailyDealsShape>
+    </Pressable>
+  );
+};
 
 const textColor = '#441973';
 
@@ -37,8 +67,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingLeft: 8,
-    paddingTop: 4,
-    paddingBottom: 4,
+    paddingTop: 8,
+    paddingBottom: 8,
   },
   fromLabel: {
     color: textColor,

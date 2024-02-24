@@ -13,7 +13,7 @@ function App(): React.JSX.Element {
         flexDirection: 'column',
       }}>
       <DailyDealsHeader
-        originCity={'Milan'}
+        originCity={'London (LON)'}
         onPress={() =>
           Alert.alert('Pressed', 'Custom Component Pressed', [
             {text: 'OK', onPress: () => console.log('OK Pressed')},

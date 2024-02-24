@@ -4,13 +4,8 @@ import Animated, {
   withDelay,
   withSpring,
 } from 'react-native-reanimated';
-import {
-  LayoutChangeEvent,
-  StyleProp,
-  StyleSheet,
-  ViewStyle,
-} from 'react-native';
-import {Canvas, Color, Path, Skia, SkPath} from '@shopify/react-native-skia';
+import {LayoutChangeEvent, StyleSheet} from 'react-native';
+import {Canvas, Color, Path, SkPath} from '@shopify/react-native-skia';
 
 type Size = {
   width: number;
@@ -22,14 +17,14 @@ type PolygonFeatures = {
   size: Size;
 };
 
-const BOTTOM_INCLINATION = 3;
-const RIGHT_INCLINATION = 20;
-
 export const DailyDealsShape: FC<{
   shapeColor: Color;
-  style?: StyleProp<ViewStyle>;
+  polygonFeaturesCalculation: (
+    width: number,
+    height: number,
+  ) => PolygonFeatures;
   children: React.ReactNode;
-}> = ({shapeColor, children}) => {
+}> = ({shapeColor, polygonFeaturesCalculation, children}) => {
   const opacity = useSharedValue(0);
   const [polygonFeatures, setPolygonFeatures] =
     useState<PolygonFeatures | null>(null);
@@ -38,23 +33,8 @@ export const DailyDealsShape: FC<{
     const {width, height} = event.nativeEvent.layout;
     const roundedWidth = Math.round(width);
     const roundedHeight = Math.round(height);
-    const widthWithInclination = roundedWidth + RIGHT_INCLINATION;
-    const heightWithInclination = roundedHeight - BOTTOM_INCLINATION;
 
-    const path = Skia.Path.Make();
-    path.moveTo(1, 0);
-    path.lineTo(widthWithInclination, 0);
-    path.lineTo(roundedWidth, roundedHeight);
-    path.lineTo(0, heightWithInclination);
-    path.close();
-
-    setPolygonFeatures({
-      vertices: path,
-      size: {
-        width: widthWithInclination,
-        height: roundedHeight,
-      },
-    });
+    setPolygonFeatures(polygonFeaturesCalculation(roundedWidth, roundedHeight));
     opacity.value = withDelay(500, withSpring(1));
   };
 

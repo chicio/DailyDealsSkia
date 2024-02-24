@@ -6,11 +6,9 @@ import {DailyDealsOrigin} from './DailyDealsOrigin.tsx';
 export const DailyDealsHeader: FC<{
   originCity: string;
   onPress: () => void;
-}> = ({originCity, onPress}) => {
-  return (
-    <View>
-      <DailyDealsTitle />
-      <DailyDealsOrigin originCity={originCity} onPress={onPress} />
-    </View>
-  );
-};
+}> = ({originCity, onPress}) => (
+  <View>
+    <DailyDealsTitle />
+    <DailyDealsOrigin originCity={originCity} onPress={onPress} />
+  </View>
+);
