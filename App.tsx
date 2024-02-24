@@ -1,24 +1,51 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Alert, StyleSheet, Text, View} from 'react-native';
-import {DailyDealsHeaderSkia} from './components/skia/DailyDealsHeaderSkia.tsx';
+import {DailyDealsHeader} from './components/DailyDealsHeader.tsx';
 import {GradientBackground} from './components/GradientBackground.tsx';
+import {DailyDealsHeaderSvg} from './components/svg/DailyDealsHeaderSvg.tsx';
+import {DailyDealsShapeSkia} from './components/DailyDealsShapeSkia.tsx';
+import {PolygonFeatures} from './components/DailyDealsBackgroundShape.tsx';
 
-function App(): React.JSX.Element {
+const renderDailyDealsShapeSkia = (
+  polygonFeatures: PolygonFeatures,
+  shapeColor: string,
+) => (
+  <DailyDealsShapeSkia
+    polygonFeatures={polygonFeatures}
+    shapeColor={shapeColor}
+  />
+);
+
+const App: FC = () => {
+  const onPress = () =>
+    Alert.alert('Pressed', 'Custom Component Pressed', [
+      {text: 'OK', onPress: () => console.log('OK Pressed')},
+    ]);
+  const originCity = 'London (LON)';
+
   return (
     <View style={styles.container}>
       <GradientBackground />
-      <Text style={styles.titleLabel}>React Native Skia</Text>
-      <DailyDealsHeaderSkia
-        originCity={'London (LON)'}
-        onPress={() =>
-          Alert.alert('Pressed', 'Custom Component Pressed', [
-            {text: 'OK', onPress: () => console.log('OK Pressed')},
-          ])
-        }
-      />
+      <View style={styles.section}>
+        <Text style={styles.titleLabel}>React Native Skia</Text>
+        <DailyDealsHeader
+          originCity={originCity}
+          onPress={onPress}
+          originShape={polygonFeatures =>
+            renderDailyDealsShapeSkia(polygonFeatures, '#FFFFFF')
+          }
+          titleShape={polygonFeatures =>
+            renderDailyDealsShapeSkia(polygonFeatures, '#F2007D')
+          }
+        />
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.titleLabel}>React Native SVG</Text>
+        <DailyDealsHeaderSvg originCity={originCity} onPress={onPress} />
+      </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -34,6 +61,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Ubuntu-Bold',
     marginBottom: 16,
     textDecorationLine: 'underline',
+  },
+  section: {
+    display: 'flex',
+    flexDirection: 'column',
+    marginBottom: 72,
   },
 });
 

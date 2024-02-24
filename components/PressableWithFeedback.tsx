@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Pressable, StyleSheet} from 'react-native';
+import {Pressable} from 'react-native';
 
 export const PressableWithFeedback: FC<{
   onPress: () => void;
@@ -8,19 +8,8 @@ export const PressableWithFeedback: FC<{
   return (
     <Pressable
       onPress={onPress}
-      style={({pressed}) => [
-        pressed ? {...styles.pressable, opacity: 0.75} : styles.pressable,
-      ]}>
+      style={({pressed}) => [pressed ? {opacity: 0.75} : {}]}>
       {children}
     </Pressable>
   );
 };
-
-const styles = StyleSheet.create({
-  pressable: {
-    marginLeft: 16,
-    marginTop: -4,
-    zIndex: -10,
-    overflow: 'visible',
-  },
-});

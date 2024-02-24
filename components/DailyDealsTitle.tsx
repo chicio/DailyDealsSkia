@@ -1,4 +1,8 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC, ReactElement, useEffect} from 'react';
+import {
+  DailyDealsBackgroundShape,
+  PolygonFeatures,
+} from './DailyDealsBackgroundShape.tsx';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -12,9 +16,29 @@ import {StyleSheet, Text, View} from 'react-native';
 const FIRE_SIZE = 25;
 const FIRE = require('../images/fire.png');
 
-export const DailyDealsTitle: FC = () => {
-  const scale = useSharedValue(1);
+const RIGHT_INCLINATION = 15;
 
+const getPolygonFeatures = (width: number, height: number): PolygonFeatures => {
+  const widthWithInclination = width + RIGHT_INCLINATION;
+
+  return {
+    vertices: {
+      topLeft: {x: 0, y: 2},
+      topRight: {x: widthWithInclination, y: 0},
+      bottomRight: {x: width, y: height},
+      bottomLeft: {x: 3, y: height},
+    },
+    size: {
+      width: widthWithInclination,
+      height: height,
+    },
+  };
+};
+
+export const DailyDealsTitle: FC<{
+  renderShape: (polygonFeatures: PolygonFeatures) => ReactElement;
+}> = ({renderShape}) => {
+  const scale = useSharedValue(1);
   const animatedStyle = useAnimatedStyle(() => {
     return {
       transform: [{scale: scale.value}],
@@ -29,10 +53,15 @@ export const DailyDealsTitle: FC = () => {
   }, [scale]);
 
   return (
-    <View style={styles.dailyDealsTitleContent}>
-      <Animated.Image source={FIRE} style={[styles.fire, animatedStyle]} />
-      <Text style={styles.titleLabel}>Daily deals</Text>
-    </View>
+    <DailyDealsBackgroundShape
+      renderShape={renderShape}
+      opacityDelay={500}
+      getPolygonFeatures={getPolygonFeatures}>
+      <View style={styles.dailyDealsTitleContent}>
+        <Animated.Image source={FIRE} style={[styles.fire, animatedStyle]} />
+        <Text style={styles.titleLabel}>Daily deals</Text>
+      </View>
+    </DailyDealsBackgroundShape>
   );
 };
 
