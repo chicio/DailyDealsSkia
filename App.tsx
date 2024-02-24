@@ -4,7 +4,7 @@ import {DailyDealsHeader} from './components/DailyDealsHeader.tsx';
 import {GradientBackground} from './components/GradientBackground.tsx';
 import {DailyDealsShapeSkia} from './components/DailyDealsShapeSkia.tsx';
 import {PolygonFeatures} from './components/DailyDealsBackgroundShape.tsx';
-import { DailyDealsShapeSvg } from "./components/DailyDealsShapeSvg.tsx";
+import {DailyDealsShapeSvg} from './components/DailyDealsShapeSvg.tsx';
 
 const renderDailyDealsShapeSkia = (
   polygonFeatures: PolygonFeatures,

@@ -56,6 +56,7 @@ export const DailyDealsTitle: FC<{
     <DailyDealsBackgroundShape
       renderShape={renderShape}
       opacityDelay={500}
+      additionalStyle={styles.shapeStyle}
       getPolygonFeatures={getPolygonFeatures}>
       <View style={styles.dailyDealsTitleContent}>
         <Animated.Image source={FIRE} style={[styles.fire, animatedStyle]} />
@@ -68,6 +69,10 @@ export const DailyDealsTitle: FC<{
 const textColor = 'white';
 
 const styles = StyleSheet.create({
+  shapeStyle: {
+    zIndex: 10,
+    elevation: 10,
+  },
   dailyDealsTitleContent: {
     display: 'flex',
     flexDirection: 'row',

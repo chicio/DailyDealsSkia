@@ -59,8 +59,6 @@ const styles = StyleSheet.create({
   shapeStyle: {
     marginLeft: 16,
     marginTop: -4,
-    zIndex: -10,
-    overflow: 'visible',
   },
   dailyDealsOriginContent: {
     display: 'flex',
