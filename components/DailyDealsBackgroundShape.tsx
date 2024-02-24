@@ -11,19 +11,23 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import {SkPoint} from '@shopify/react-native-skia';
 
 type Size = {
-  width: number;
-  height: number;
+  readonly width: number;
+  readonly height: number;
+};
+
+export type Point = {
+  readonly x: number;
+  readonly y: number;
 };
 
 export type PolygonFeatures = {
   vertices: {
-    topLeft: SkPoint;
-    topRight: SkPoint;
-    bottomRight: SkPoint;
-    bottomLeft: SkPoint;
+    topLeft: Point;
+    topRight: Point;
+    bottomRight: Point;
+    bottomLeft: Point;
   };
   size: Size;
 };

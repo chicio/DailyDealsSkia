@@ -19,16 +19,14 @@ export const DailyDealsShapeSkia: FC<{
   path.close();
 
   return (
-    <>
-      {polygonFeatures && (
-        <Canvas
-          style={{
-            width: size.width,
-            height: size.height,
-          }}>
-          <Path path={path} color={shapeColor} />
-        </Canvas>
-      )}
-    </>
+    polygonFeatures && (
+      <Canvas
+        style={{
+          width: size.width,
+          height: size.height,
+        }}>
+        <Path path={path} color={shapeColor} />
+      </Canvas>
+    )
   );
 };

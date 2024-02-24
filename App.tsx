@@ -4,12 +4,23 @@ import {DailyDealsHeader} from './components/DailyDealsHeader.tsx';
 import {GradientBackground} from './components/GradientBackground.tsx';
 import {DailyDealsShapeSkia} from './components/DailyDealsShapeSkia.tsx';
 import {PolygonFeatures} from './components/DailyDealsBackgroundShape.tsx';
+import { DailyDealsShapeSvg } from "./components/DailyDealsShapeSvg.tsx";
 
 const renderDailyDealsShapeSkia = (
   polygonFeatures: PolygonFeatures,
   shapeColor: string,
 ) => (
   <DailyDealsShapeSkia
+    polygonFeatures={polygonFeatures}
+    shapeColor={shapeColor}
+  />
+);
+
+const renderDailyDealsShapeSvg = (
+  polygonFeatures: PolygonFeatures,
+  shapeColor: string,
+) => (
+  <DailyDealsShapeSvg
     polygonFeatures={polygonFeatures}
     shapeColor={shapeColor}
   />
@@ -40,6 +51,16 @@ const App: FC = () => {
       </View>
       <View style={styles.section}>
         <Text style={styles.titleLabel}>React Native SVG</Text>
+        <DailyDealsHeader
+          originCity={originCity}
+          onPress={onPress}
+          originShape={polygonFeatures =>
+            renderDailyDealsShapeSvg(polygonFeatures, '#FFFFFF')
+          }
+          titleShape={polygonFeatures =>
+            renderDailyDealsShapeSvg(polygonFeatures, '#F2007D')
+          }
+        />
       </View>
     </View>
   );
