@@ -1,10 +1,12 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import Animated, {
+  ReduceMotion,
   useSharedValue,
   withDelay,
   withSpring,
+  withTiming,
 } from 'react-native-reanimated';
-import {LayoutChangeEvent, StyleSheet} from 'react-native';
+import {Easing, LayoutChangeEvent, StyleSheet, View} from 'react-native';
 import {Canvas, Color, Path, SkPath} from '@shopify/react-native-skia';
 
 type Size = {
@@ -19,13 +21,20 @@ type PolygonFeatures = {
 
 export const DailyDealsShape: FC<{
   shapeColor: Color;
+  shapeOpacityDelay: number;
   polygonFeaturesCalculation: (
     width: number,
     height: number,
   ) => PolygonFeatures;
   children: React.ReactNode;
-}> = ({shapeColor, polygonFeaturesCalculation, children}) => {
-  const opacity = useSharedValue(0);
+}> = ({
+  shapeColor,
+  shapeOpacityDelay,
+  polygonFeaturesCalculation,
+  children,
+}) => {
+  const shapeOpacity = useSharedValue(0);
+  const contentOpacity = useSharedValue(0);
   const [polygonFeatures, setPolygonFeatures] =
     useState<PolygonFeatures | null>(null);
 
@@ -35,13 +44,27 @@ export const DailyDealsShape: FC<{
     const roundedHeight = Math.round(height);
 
     setPolygonFeatures(polygonFeaturesCalculation(roundedWidth, roundedHeight));
-    opacity.value = withDelay(500, withSpring(1));
   };
+
+  useEffect(() => {
+    shapeOpacity.value = withDelay(
+      shapeOpacityDelay,
+      withTiming(1, {
+        duration: 400,
+      }),
+    );
+    contentOpacity.value = withDelay(
+      shapeOpacityDelay + 350,
+      withTiming(1, {
+        duration: 400,
+      }),
+    );
+  }, [contentOpacity, polygonFeatures, shapeOpacity, shapeOpacityDelay]);
 
   return (
     <Animated.View
       onLayout={onContentLayout}
-      style={{...styles.pressableContent, opacity}}>
+      style={{...styles.pressableContent, opacity: shapeOpacity}}>
       {polygonFeatures && (
         <Canvas
           style={{
@@ -52,7 +75,9 @@ export const DailyDealsShape: FC<{
           <Path path={polygonFeatures.vertices} color={shapeColor} />
         </Canvas>
       )}
-      {children}
+      <Animated.View style={{opacity: contentOpacity}}>
+        {children}
+      </Animated.View>
     </Animated.View>
   );
 };

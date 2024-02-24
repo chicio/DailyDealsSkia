@@ -1,7 +1,15 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import {DailyDealsShape} from './DailyDealsShape.tsx';
 import {Skia} from '@shopify/react-native-skia';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withDelay,
+  withRepeat,
+  withSequence,
+  withTiming,
+} from 'react-native-reanimated';
 
 const ARROW_DOWN = require('./images/arrow-icon-bold.png');
 const ARROW_SIDE_SIZE = 20;
@@ -35,16 +43,43 @@ export const DailyDealsOrigin: FC<{
   originCity: string;
   onPress: () => void;
 }> = ({originCity, onPress}) => {
+  const translate = useSharedValue(0);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{translateY: translate.value}],
+    };
+  });
+
+  useEffect(() => {
+    translate.value = withDelay(
+      1500,
+      withSequence(
+        withRepeat(
+          withTiming(-2, {
+            duration: 500,
+          }),
+          -1,
+          true,
+        ),
+      ),
+    );
+  }, [translate]);
+
   return (
     <Pressable onPress={onPress} style={styles.pressable}>
       <DailyDealsShape
         shapeColor={'white'}
+        shapeOpacityDelay={800}
         polygonFeaturesCalculation={dailyDealsOriginPolygonFeaturesCalculation}>
         <View style={styles.dailyDealsOriginContent}>
           <Text style={styles.fromLabel}>from</Text>
           <View style={styles.originAndArrowIconContainer}>
             <Text style={styles.origin}>{originCity}</Text>
-            <Image source={ARROW_DOWN} style={styles.arrow} />
+            <Animated.Image
+              source={ARROW_DOWN}
+              style={[styles.arrow, animatedStyle]}
+            />
           </View>
         </View>
       </DailyDealsShape>
@@ -67,7 +102,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingLeft: 8,
-    paddingTop: 8,
+    paddingTop: 12,
     paddingBottom: 8,
   },
   fromLabel: {
