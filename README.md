@@ -13,5 +13,10 @@ or by leveraging the SVG drawing using React Native SVG.
 
 > ...
 
+These are the components created in the example.
+
+![Daily Deals](https://github.com/chicio/React-Native-Background-Shape-Skia-Svg/blob/main/daily-deals-featured.jpg?raw=true)
+
+
 Click [here](XXXX "React Native is Native:
 drawing highly customized background shapes with React Native Skia and React Native SVG") to read the post.
