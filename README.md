@@ -1,4 +1,4 @@
-# React Native Multiple RCTRootView
+# React Native Background Shape Skia Svg
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/chicio/Daily-Deals-Skia-SVG/master/LICENSE.md)
 
