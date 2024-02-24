@@ -1,12 +1,10 @@
 import React, {FC, useEffect, useState} from 'react';
 import Animated, {
-  ReduceMotion,
   useSharedValue,
   withDelay,
-  withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import {Easing, LayoutChangeEvent, StyleSheet, View} from 'react-native';
+import {LayoutChangeEvent, StyleSheet} from 'react-native';
 import {Canvas, Color, Path, SkPath} from '@shopify/react-native-skia';
 
 type Size = {
