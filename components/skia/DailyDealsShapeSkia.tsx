@@ -17,7 +17,7 @@ type PolygonFeatures = {
   size: Size;
 };
 
-export const DailyDealsShape: FC<{
+export const DailyDealsShapeSkia: FC<{
   shapeColor: Color;
   shapeOpacityDelay: number;
   polygonFeaturesCalculation: (

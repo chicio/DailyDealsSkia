@@ -1,7 +1,4 @@
 import React, {FC, useEffect} from 'react';
-import {DailyDealsShape} from './DailyDealsShape.tsx';
-import {StyleSheet, Text, View} from 'react-native';
-import {Skia} from '@shopify/react-native-skia';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -10,32 +7,10 @@ import Animated, {
   withSequence,
   withTiming,
 } from 'react-native-reanimated';
+import {StyleSheet, Text, View} from 'react-native';
 
 const FIRE_SIZE = 25;
-const FIRE = require('./images/fire.png');
-const RIGHT_INCLINATION = 15;
-
-const dailyDealsTitlePolygonFeaturesCalculation = (
-  width: number,
-  height: number,
-) => {
-  const widthWithInclination = width + RIGHT_INCLINATION;
-
-  const path = Skia.Path.Make();
-  path.moveTo(0, 2);
-  path.lineTo(widthWithInclination, 0);
-  path.lineTo(width, height);
-  path.lineTo(3, height);
-  path.close();
-
-  return {
-    vertices: path,
-    size: {
-      width: widthWithInclination,
-      height: height,
-    },
-  };
-};
+const FIRE = require('../images/fire.png');
 
 export const DailyDealsTitle: FC = () => {
   const scale = useSharedValue(1);
@@ -48,21 +23,16 @@ export const DailyDealsTitle: FC = () => {
 
   useEffect(() => {
     scale.value = withDelay(
-      2000,
+      1800,
       withSequence(withRepeat(withTiming(1.2, {duration: 175}), 8, true)),
     );
   }, [scale]);
 
   return (
-    <DailyDealsShape
-      shapeColor={'#F2007D'}
-      shapeOpacityDelay={500}
-      polygonFeaturesCalculation={dailyDealsTitlePolygonFeaturesCalculation}>
-      <View style={styles.dailyDealsTitleContent}>
-        <Animated.Image source={FIRE} style={[styles.fire, animatedStyle]} />
-        <Text style={styles.titleLabel}>Daily deals</Text>
-      </View>
-    </DailyDealsShape>
+    <View style={styles.dailyDealsTitleContent}>
+      <Animated.Image source={FIRE} style={[styles.fire, animatedStyle]} />
+      <Text style={styles.titleLabel}>Daily deals</Text>
+    </View>
   );
 };
 
