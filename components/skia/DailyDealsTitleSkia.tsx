@@ -1,22 +1,19 @@
 import React, {FC} from 'react';
-import {DailyDealsShapeSkia} from './DailyDealsShapeSkia.tsx';
-import {Skia} from '@shopify/react-native-skia';
+import {DailyDealsShapeSkia, PolygonFeatures} from './DailyDealsShapeSkia.tsx';
 import {DailyDealsTitle} from '../DailyDealsTitle.tsx';
 
 const RIGHT_INCLINATION = 15;
 
-const polygonFeaturesCalculation = (width: number, height: number) => {
+const getPolygonFeatures = (width: number, height: number): PolygonFeatures => {
   const widthWithInclination = width + RIGHT_INCLINATION;
 
-  const path = Skia.Path.Make();
-  path.moveTo(0, 2);
-  path.lineTo(widthWithInclination, 0);
-  path.lineTo(width, height);
-  path.lineTo(3, height);
-  path.close();
-
   return {
-    vertices: path,
+    vertices: {
+      topLeft: {x: 0, y: 2},
+      topRight: {x: widthWithInclination, y: 0},
+      bottomRight: {x: width, y: height},
+      bottomLeft: {x: 3, y: height},
+    },
     size: {
       width: widthWithInclination,
       height: height,
@@ -28,7 +25,7 @@ export const DailyDealsTitleSkia: FC = () => (
   <DailyDealsShapeSkia
     shapeColor={'#F2007D'}
     shapeOpacityDelay={500}
-    polygonFeaturesCalculation={polygonFeaturesCalculation}>
+    getPolygonFeatures={getPolygonFeatures}>
     <DailyDealsTitle />
   </DailyDealsShapeSkia>
 );

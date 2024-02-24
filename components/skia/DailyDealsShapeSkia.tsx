@@ -5,43 +5,68 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import {LayoutChangeEvent, StyleSheet} from 'react-native';
-import {Canvas, Color, Path, SkPath} from '@shopify/react-native-skia';
+import {
+  Canvas,
+  Color,
+  Path,
+  Skia,
+  SkPath,
+  SkPoint,
+} from '@shopify/react-native-skia';
 
 type Size = {
   width: number;
   height: number;
 };
 
-type PolygonFeatures = {
-  vertices: SkPath;
+export type PolygonFeatures = {
+  vertices: {
+    topLeft: SkPoint;
+    topRight: SkPoint;
+    bottomRight: SkPoint;
+    bottomLeft: SkPoint;
+  };
+  size: Size;
+};
+
+type PolygonPath = {
+  path: SkPath;
   size: Size;
 };
 
 export const DailyDealsShapeSkia: FC<{
   shapeColor: Color;
   shapeOpacityDelay: number;
-  polygonFeaturesCalculation: (
-    width: number,
-    height: number,
-  ) => PolygonFeatures;
+  getPolygonFeatures: (width: number, height: number) => PolygonFeatures;
   children: React.ReactNode;
-}> = ({
-  shapeColor,
-  shapeOpacityDelay,
-  polygonFeaturesCalculation,
-  children,
-}) => {
+}> = ({shapeColor, shapeOpacityDelay, getPolygonFeatures, children}) => {
   const shapeOpacity = useSharedValue(0);
   const contentOpacity = useSharedValue(0);
-  const [polygonFeatures, setPolygonFeatures] =
-    useState<PolygonFeatures | null>(null);
+  const [polygonFeatures, setPolygonFeatures] = useState<PolygonPath | null>(
+    null,
+  );
 
   const onContentLayout = (event: LayoutChangeEvent) => {
     const {width, height} = event.nativeEvent.layout;
     const roundedWidth = Math.round(width);
     const roundedHeight = Math.round(height);
 
-    setPolygonFeatures(polygonFeaturesCalculation(roundedWidth, roundedHeight));
+    const {
+      vertices: {topLeft, topRight, bottomLeft, bottomRight},
+      size,
+    } = getPolygonFeatures(roundedWidth, roundedHeight);
+
+    const path = Skia.Path.Make();
+    path.moveTo(topLeft.x, topLeft.y);
+    path.lineTo(topRight.x, topRight.y);
+    path.lineTo(bottomRight.x, bottomRight.y);
+    path.lineTo(bottomLeft.x, bottomLeft.y);
+    path.close();
+
+    setPolygonFeatures({
+      path,
+      size,
+    });
   };
 
   useEffect(() => {
@@ -70,7 +95,7 @@ export const DailyDealsShapeSkia: FC<{
             width: polygonFeatures.size.width,
             height: polygonFeatures.size.height,
           }}>
-          <Path path={polygonFeatures.vertices} color={shapeColor} />
+          <Path path={polygonFeatures.path} color={shapeColor} />
         </Canvas>
       )}
       <Animated.View style={{opacity: contentOpacity}}>
