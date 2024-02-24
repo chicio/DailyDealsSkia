@@ -2,7 +2,6 @@ import React, {FC} from 'react';
 import {Alert, StyleSheet, Text, View} from 'react-native';
 import {DailyDealsHeader} from './components/DailyDealsHeader.tsx';
 import {GradientBackground} from './components/GradientBackground.tsx';
-import {DailyDealsHeaderSvg} from './components/svg/DailyDealsHeaderSvg.tsx';
 import {DailyDealsShapeSkia} from './components/DailyDealsShapeSkia.tsx';
 import {PolygonFeatures} from './components/DailyDealsBackgroundShape.tsx';
 
@@ -41,7 +40,6 @@ const App: FC = () => {
       </View>
       <View style={styles.section}>
         <Text style={styles.titleLabel}>React Native SVG</Text>
-        <DailyDealsHeaderSvg originCity={originCity} onPress={onPress} />
       </View>
     </View>
   );
