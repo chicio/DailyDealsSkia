@@ -22,5 +22,5 @@ These are the components created in the example.
 ![Daily Deals](https://github.com/chicio/React-Native-Background-Shape-Skia-Svg/blob/main/daily-deals-featured.jpg?raw=true)
 
 
-Click [here](https://www.fabrizioduroni.it/2024/03/10/react-native-skia-svg-background-shape-text/ "React Native is Native:
+Click [here](https://www.fabrizioduroni.it/2024/03/02/react-native-skia-svg-background-shape-text/ "React Native is Native:
 drawing highly customized background shapes with React Native Skia and React Native SVG") to read the post.
