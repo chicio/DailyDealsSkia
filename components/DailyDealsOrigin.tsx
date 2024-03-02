@@ -31,11 +31,13 @@ const getPolygonFeatures = (width: number, height: number): PolygonFeatures => {
   };
 };
 
-export const DailyDealsOrigin: FC<{
+type Props = {
   originCity: string;
   onPress: () => void;
   renderShape: (polygonFeatures: PolygonFeatures) => ReactElement;
-}> = ({originCity, onPress, renderShape}) => (
+};
+
+export const DailyDealsOrigin: FC<Props> = ({originCity, onPress, renderShape}) => (
   <DailyDealsBackgroundShape
     renderShape={renderShape}
     getPolygonFeatures={getPolygonFeatures}

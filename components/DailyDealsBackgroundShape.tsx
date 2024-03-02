@@ -32,13 +32,15 @@ export type PolygonFeatures = {
   size: Size;
 };
 
-export const DailyDealsBackgroundShape: FC<{
+type Props = {
   renderShape: (polygonFeatures: PolygonFeatures) => ReactElement;
   opacityDelay: number;
   getPolygonFeatures: (width: number, height: number) => PolygonFeatures;
   additionalStyle?: StyleProp<ViewStyle>;
   children: React.ReactNode;
-}> = ({
+};
+
+export const DailyDealsBackgroundShape: FC<Props> = ({
   renderShape,
   opacityDelay,
   getPolygonFeatures,

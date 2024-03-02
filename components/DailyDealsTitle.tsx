@@ -35,9 +35,11 @@ const getPolygonFeatures = (width: number, height: number): PolygonFeatures => {
   };
 };
 
-export const DailyDealsTitle: FC<{
+type Props = {
   renderShape: (polygonFeatures: PolygonFeatures) => ReactElement;
-}> = ({renderShape}) => {
+};
+
+export const DailyDealsTitle: FC<Props> = ({renderShape}) => {
   const scale = useSharedValue(1);
   const animatedStyle = useAnimatedStyle(() => {
     return {

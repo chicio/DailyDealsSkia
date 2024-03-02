@@ -2,10 +2,15 @@ import React, {FC} from 'react';
 import {Canvas, Color, Path, Skia} from '@shopify/react-native-skia';
 import {PolygonFeatures} from './DailyDealsBackgroundShape.tsx';
 
-export const DailyDealsShapeSkia: FC<{
+type Props = {
   polygonFeatures: PolygonFeatures;
   shapeColor: Color;
-}> = ({polygonFeatures, shapeColor}) => {
+};
+
+export const DailyDealsShapeSkia: FC<Props> = ({
+  polygonFeatures,
+  shapeColor,
+}) => {
   const {
     vertices: {topLeft, topRight, bottomLeft, bottomRight},
     size,

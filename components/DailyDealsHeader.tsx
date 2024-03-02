@@ -4,12 +4,19 @@ import {DailyDealsTitle} from './DailyDealsTitle.tsx';
 import {DailyDealsOrigin} from './DailyDealsOrigin.tsx';
 import {PolygonFeatures} from './DailyDealsBackgroundShape.tsx';
 
-export const DailyDealsHeader: FC<{
+type Props = {
   originCity: string;
   onPress: () => void;
   titleShape: (polygonFeatures: PolygonFeatures) => ReactElement;
   originShape: (polygonFeatures: PolygonFeatures) => ReactElement;
-}> = ({titleShape, originShape, originCity, onPress}) => (
+};
+
+export const DailyDealsHeader: FC<Props> = ({
+  titleShape,
+  originShape,
+  originCity,
+  onPress,
+}) => (
   <View style={styles.header}>
     <DailyDealsTitle renderShape={titleShape} />
     <DailyDealsOrigin

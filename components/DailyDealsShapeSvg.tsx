@@ -4,10 +4,15 @@ import Svg, {Polygon} from 'react-native-svg';
 
 const svgVertex = (point: Point) => `${point.x},${point.y}`;
 
-export const DailyDealsShapeSvg: FC<{
+type Props = {
   polygonFeatures: PolygonFeatures;
   shapeColor: string;
-}> = ({polygonFeatures, shapeColor}) => {
+};
+
+export const DailyDealsShapeSvg: FC<Props> = ({
+  polygonFeatures,
+  shapeColor,
+}) => {
   const {
     vertices: {topLeft, topRight, bottomLeft, bottomRight},
     size,

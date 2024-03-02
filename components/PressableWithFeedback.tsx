@@ -1,10 +1,12 @@
 import React, {FC} from 'react';
 import {Pressable} from 'react-native';
 
-export const PressableWithFeedback: FC<{
+type Props = {
   onPress: () => void;
   children: React.ReactNode;
-}> = ({onPress, children}) => {
+};
+
+export const PressableWithFeedback: FC<Props> = ({onPress, children}) => {
   return (
     <Pressable
       onPress={onPress}
