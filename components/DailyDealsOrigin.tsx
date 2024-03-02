@@ -37,7 +37,11 @@ type Props = {
   renderShape: (polygonFeatures: PolygonFeatures) => ReactElement;
 };
 
-export const DailyDealsOrigin: FC<Props> = ({originCity, onPress, renderShape}) => (
+export const DailyDealsOrigin: FC<Props> = ({
+  originCity,
+  onPress,
+  renderShape,
+}) => (
   <DailyDealsBackgroundShape
     renderShape={renderShape}
     getPolygonFeatures={getPolygonFeatures}
